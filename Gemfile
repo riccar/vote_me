@@ -7,6 +7,7 @@ group :development do
 end
 
 group :production do
+	#postgre DB gem for Heroku
   gem 'pg', '0.12.2'
 end
 
