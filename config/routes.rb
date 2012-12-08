@@ -1,6 +1,7 @@
 VoteMe::Application.routes.draw do
   
-  get "users/new"
+  #Generating all the actions needed by RESTful Users resource
+  resources :users
 
   root to: 'static_pages#home'
 
