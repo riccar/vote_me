@@ -2,10 +2,13 @@ VoteMe::Application.routes.draw do
   
   #Generating all the actions needed by RESTful Users resource
   resources :users
-
+  resources :sessions, only: [:new, :create, :destroy]
+  
   root to: 'static_pages#home'
 
-  match '/sign_up',  to: 'users#new'
+  match '/signup',  to: 'users#new'
+  match '/signin',  to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
 
   match '/help',    to: 'static_pages#help'
   match '/about',   to: 'static_pages#about'
