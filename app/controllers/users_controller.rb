@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
 	before_filter :signed_in_user, only: [:index, :edit, :update]
 	before_filter :correct_user,   only: [:edit, :update]
+	before_filter :admin_user,     only: :destroy
 
 	#By default show calls views/users/show.html.erb
 	def show
@@ -15,7 +16,11 @@ class UsersController < ApplicationController
 
 	#By default index calls views/users/index.html.erb
  	def index
-    @users = User.all
+ 		#Get all the users using the paginate gem predef. function
+ 		@users = User.paginate(page: params[:page])
+ 		
+ 		#Normal call to all users
+    #@users = User.all
   end
 
 	def create
@@ -51,6 +56,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted."
+    redirect_to users_url
+  end
+  .
+
   private
 
     def signed_in_user
@@ -65,6 +77,10 @@ class UsersController < ApplicationController
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)
+    end
+
+    def admin_user
+      redirect_to(root_path) unless current_user.admin?
     end
 
 end
