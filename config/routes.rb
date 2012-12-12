@@ -3,6 +3,7 @@ VoteMe::Application.routes.draw do
   #Generating all the actions needed by RESTful Users resource
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
+  resources :microposts, only: [:create, :destroy]
   
   root to: 'static_pages#home'
 

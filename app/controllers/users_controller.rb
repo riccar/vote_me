@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 	#By default show calls views/users/show.html.erb
 	def show
     @user = User.find(params[:id])
+    @microposts = @user.microposts.paginate(page: params[:page])
   end
   
   #By default new calls views/users/new.html.erb
@@ -66,15 +67,6 @@ class UsersController < ApplicationController
   end
 
   private
-
-    def signed_in_user
-    	unless signed_in?
-        store_location
-        redirect_to signin_url, notice: "Please sign in."
-      end
-      #Equivalent to below if it can be writen in one line
-      #redirect_to signin_url, notice: "Please sign in." unless signed_in?
-    end
 
     def correct_user
       @user = User.find(params[:id])
