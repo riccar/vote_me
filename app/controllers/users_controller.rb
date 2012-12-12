@@ -61,7 +61,6 @@ class UsersController < ApplicationController
     flash[:success] = "User deleted."
     redirect_to users_url
   end
-  .
 
   private
 
