@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 	#By default index calls views/users/index.html.erb
  	def index
  		#Get all the users using the paginate gem predef. function
- 		@users = User.paginate(page: params[:page])
+ 		@users = User.paginate(page: params[:page] :per_page => 2))
  		
  		#Normal call to all users
     #@users = User.all
