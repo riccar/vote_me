@@ -8,7 +8,8 @@
       </h1>
     </section>
   </aside>
-  <div class="span8">
+  <aside class="span8">
+    <%= render 'shared/micropost_form' %>
     <% if @user.microposts.any? %>
     	<%= will_paginate @microposts %>
       <h3>Chinazos: (<%= @user.microposts.count %>)</h3>
@@ -18,5 +19,5 @@
       </ol>
       <%= will_paginate @microposts %>
     <% end %>
-  </div>
+  </aside>
 </div>
