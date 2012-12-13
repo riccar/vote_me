@@ -8,7 +8,6 @@ class UsersController < ApplicationController
 	def show
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
-    @micropost = @user.microposts.build(params[:micropost])
   end
   
   #By default new calls views/users/new.html.erb
