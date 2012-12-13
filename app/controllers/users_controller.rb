@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 	#By default show calls views/users/show.html.erb
 	def show
     @user = User.find(params[:id])
+    @micropost = current_user.microposts.build
     @microposts = @user.microposts.paginate(page: params[:page])
   end
   
@@ -21,7 +22,7 @@ class UsersController < ApplicationController
 	#By default index calls views/users/index.html.erb
  	def index
  		#Get all the users using the paginate gem predef. function
- 		@users = User.paginate(page: params[:page], per_page: 2)
+ 		@users = User.paginate(page: params[:page], per_page: 30)
  		
  		#Normal call to all users
     #@users = User.all
