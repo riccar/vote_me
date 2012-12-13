@@ -10,7 +10,7 @@
   </aside>
   <aside class="span8">
     <%= render 'shared/micropost_form' %>
-    <% if @user.microposts.any? %>
+    <% if @user.microposts.any? && current_user.admin? %>
     	<%= will_paginate @microposts %>
       <h3>Chinazos: (<%= @user.microposts.count %>)</h3>
       <ol class="microposts">

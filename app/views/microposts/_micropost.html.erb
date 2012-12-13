@@ -1,7 +1,9 @@
 <li>
   <span class="content"><%= micropost.content %></span>
+  By: <%= @user.name %></br>
+  Votes: <%= micropost.votes %></br>
   <span class="timestamp">
-  	By: <%= @user.name %></br>
+
     Posted <%= time_ago_in_words(micropost.created_at) %> ago.
   </span>
 </li>

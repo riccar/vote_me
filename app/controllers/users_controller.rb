@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   
   #By default new calls views/users/new.html.erb
   def new
-    redirect_to(root_path) unless !signed_in?
+    #redirect_to(root_path) unless !signed_in?
     
     @user = User.new
     

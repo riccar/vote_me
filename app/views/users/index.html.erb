@@ -1,6 +1,8 @@
 <% provide(:title, 'All users') %>
 <h1>All users</h1>
-
+<%= link_to "Add new user!", signup_path, 
+                                class: "btn btn-large btn-primary" %>
+</br>
 <%= will_paginate %>
 
 <ul class="users">
