@@ -5,12 +5,16 @@ class MicropostsController < ApplicationController
   end
 
   def create
-  	@micropost = current_user.microposts.build(params[:micropost])
+    #Rails.logger.info("PARAMS: #{params.inspect}")
+    @user = User.find(params[:user_id])
+  	@micropost = @user.microposts.build(params[:micropost])
     if @micropost.save
       flash[:success] = "Chinazo created!"
-      redirect_to root_url
+      redirect_to @user
     else
-      render 'static_pages/home'
+      @microposts = @user.microposts.paginate(page: params[:page])
+      params[:id] = @user.id
+      render  'users/show'
     end
   end
 
