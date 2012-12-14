@@ -1,0 +1,16 @@
+<% provide(:title, 'Vote') %>
+<h1>Vote for the best chinazo</h1>
+<ul class="users">
+	<%= form_tag(:controller => "microposts", 
+				:action => "vote", 
+				:method => "post") do |f| %>
+	 	<% @microposts.each do |micropost| %>
+	    <li>
+	      <%= micropost.content %>
+	      <%= micropost.content %>
+	    
+	    </li>
+	  	<% end %>
+	   	<%= f.submit "VOTE", class: "btn btn-large btn-primary" %>
+	<% end %>
+</ul>

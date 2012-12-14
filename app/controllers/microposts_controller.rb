@@ -2,6 +2,8 @@ class MicropostsController < ApplicationController
   before_filter :signed_in_user, only: [:create, :destroy]
 	
 	def index
+    @microposts = Micropost.all
+    @micropost = current_user.microposts.build
   end
 
   def create
@@ -19,5 +21,8 @@ class MicropostsController < ApplicationController
   end
 
   def destroy
+  end
+
+  def vote
   end
 end
