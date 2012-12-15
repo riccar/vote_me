@@ -8,7 +8,7 @@
           <li><%= link_to "Help", help_path %></li>
           <% if signed_in? %>
             <li><%= link_to "Users", users_path %></li>
-            <li><%= link_to "Vote", microposts_path %></li>
+            <li><%= link_to "Vote", '/vote' %></li>
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Account <b class="caret"></b>

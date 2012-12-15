@@ -1,16 +1,19 @@
 <% provide(:title, 'Vote') %>
 <h1>Vote for the best chinazo</h1>
-<ul class="users">
-	<%= form_tag(:controller => "microposts", 
-				:action => "vote", 
-				:method => "post") do |f| %>
-	 	<% @microposts.each do |micropost| %>
-	    <li>
-	      <%= micropost.content %>
-	      <%= micropost.content %>
-	    
-	    </li>
-	  	<% end %>
-	   	<%= f.submit "VOTE", class: "btn btn-large btn-primary" %>
-	<% end %>
-</ul>
+<div class="row">
+	<div class="span6 offset3">
+		<%= form_tag("/vote", :method => "post") do |f| %>
+		 	<% @microposts.each do |micropost| %>
+		 
+		      <span class="content"><%= micropost.content %></span>
+		      Votes: <%= micropost.votes %>
+		      <span class="content">Your vote: <%= select_tag( :votes, options_for_select(
+		      	[ ['1', 1], ['2', 2], ['3',3], ['4',4], ['5',5], ['6',6], ['7',7], ['8',8], ['9',9], ['10',10] ], 1)) %>
+		      </span>
+		      <%= hidden_field_tag :micropost_id, micropost.id %>
+		  	<% end %>
+		  	<%= submit_tag "VOTE", class: "btn btn-large btn-primary"  %>
+		   	
+		<% end %>
+	</div>
+</div>

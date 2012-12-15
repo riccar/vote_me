@@ -24,5 +24,10 @@ class MicropostsController < ApplicationController
   end
 
   def vote
+
+    puts params.inspect
+    @microposts = Micropost.all
+    @micropost = current_user.microposts.build
+    render  'microposts/index'
   end
 end
