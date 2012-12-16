@@ -3,7 +3,7 @@ class MicropostsController < ApplicationController
 	
 	def index
     @microposts = Micropost.all
-    @micropost = current_user.microposts.build
+    #@micropost = current_user.microposts.build
   end
 
   def create
@@ -24,10 +24,8 @@ class MicropostsController < ApplicationController
   end
 
   def vote
-
-    puts params.inspect
     @microposts = Micropost.all
-    @micropost = current_user.microposts.build
+    
     render  'microposts/index'
   end
 end
