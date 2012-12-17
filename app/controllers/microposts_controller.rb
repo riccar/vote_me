@@ -24,8 +24,17 @@ class MicropostsController < ApplicationController
   end
 
   def vote
-    @microposts = Micropost.all
+    #@microposts = Micropost.all
     
-    render  'microposts/index'
+    #render  'microposts/index'
+
+    @microposts = Micropost.update(params[:microposts].keys, params[:microposts].values).reject { |p| p.errors.empty? }
+    if @microposts.empty?
+      flash[:notice] = "Chinazos updated"
+      redirect_to microposts_url
+    else
+      render :action => "index"
+    end
+
   end
 end

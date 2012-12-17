@@ -3,20 +3,22 @@
 <div class="row">
 	<div class="span6 offset3">
 		<!--%= params.inspect %-->
-		<%= form_tag("/vote", :method => "post") do |f| %>
+		<%= form_tag("/vote", :method => "post") do %>
+			
 			<%= submit_tag "VOTE", class: "btn btn-large btn-primary"  %>
-			<% i = 1 
-				ids = {}
-			%>
+			</br>
 		 	<% @microposts.each do |micropost| %>
-		 	
-	      <span class="content"><%= micropost.content %></span>
-	      Votes: <%= micropost.votes %>
-	      <span class="content">Your vote: <%= select_tag( "votes_" + micropost.id.to_s, options_for_select(
-	      	[ ['0', 0], ['1', 1], ['2', 2], ['3',3], ['4',4], ['5',5], ['6',6], ['7',7], ['8',8], ['9',9], ['10',10] ], 0)) %>
-	      </span>
-	      <%= hidden_field_tag micropost.id, micropost.id %>
-	      <% i = i + 1 %>
+		 		</br>
+		 		<%= fields_for "microposts[]", micropost do |f| %>
+		      <span class="content"><%= micropost.content %></span>
+		      Votes: <%= micropost.votes %>
+		 
+		      <span class="content">Your vote: <%= f.select( "votes", { "0" => "0", "1" => "1", "2" => "2", "3" => "3", "4" => "4", "5" => "5", "6" => "6", "7" => "7", "8" => "8", "9" => "9", "10" => "10"} )
+		      	%>
+		      </span>	
+
+		      
+		    <% end %>
 			 
 		  <% end %>
 		  <%= submit_tag "VOTE", class: "btn btn-large btn-primary"  %>
