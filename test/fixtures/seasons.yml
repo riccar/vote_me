@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  year: 1
+  description: MyString
+  round: 1
+  current: false
+
+two:
+  year: 1
+  description: MyString
+  round: 1
+  current: false

@@ -1,6 +1,6 @@
 module MicropostsHelper
 	def vote
-		params[:page].inspect
+		#params[:page].inspect
 	end
 
 end

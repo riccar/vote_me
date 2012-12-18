@@ -1,29 +1,51 @@
 <% provide(:title, 'Vote') %>
 <h1>Vote for the best chinazo</h1>
+<% if current_user.admin? %>
+	<div class="row">
+		<div class="span6 offset3">
+			<%= form_tag("/set_round", :method => "post") do %>
+				<span class="content">
+					<%= label_tag(:round, "Set a round of:") %>
+				  <%= text_field_tag(:round) %>
+					<%= check_box_tag(:reset_vote) %>  Allow users to vote
+				</span>
+				</br>
+				<%= submit_tag "Send", class: "btn btn-large btn-primary"  %>
+				</br>
+			<% end %>
+		</div>
+	</div>
+<% end %>
 <div class="row">
 	<div class="span6 offset3">
 
-		<%= params.inspect %>
-		<%= form_tag("/vote", :method => "post") do %>
-			
-			<%= submit_tag "VOTE", class: "btn btn-large btn-primary"  %>
-			
-			</br>
-		 	<% @microposts.each do |micropost| %>
-		 		</br>
-		 		<%= fields_for "microposts[]", micropost do |f| %>
-		      <span class="content"><%= micropost.content %></span>
-		      Votes: <%= micropost.votes %>
-		 
-		      <span class="content">Your vote: <%= f.select( "votes", { "0" => "0", "1" => "1", "2" => "2", "3" => "3", "4" => "4", "5" => "5", "6" => "6", "7" => "7", "8" => "8", "9" => "9", "10" => "10"} )
-		      	%>
-		      </span>	
+		<% if current_user.vote == false %>
+			<%= form_tag("/vote", :method => "post") do %>
+				
+				<%= submit_tag "VOTE", class: "btn btn-large btn-primary"  %>
 
-		    <% end %>			 
-		  <% end %>
+				</br>
+			 	<% @microposts.each do |micropost| %>
+			 		</br>
+			 		<%= fields_for "microposts[]", micropost do |f| %>
+			      <span class="content"><%= micropost.content %></span>
+			      <% if current_user.admin? %>
 
-		  <%= submit_tag "VOTE", class: "btn btn-large btn-primary"  %>
-		   	
+				      Votes: <%= micropost.votes %>
+				    <% end %>
+			 
+			      <span class="content">Your vote: <%= f.select( "votes", { "0" => "0", "1" => "1", "2" => "2", "3" => "3", "4" => "4", "5" => "5", "6" => "6", "7" => "7", "8" => "8", "9" => "9", "10" => "10"}, :selected => 0 )
+			      	%>
+			      </span>	
+
+			    <% end %>			 
+			  <% end %>
+
+			  <%= submit_tag "VOTE", class: "btn btn-large btn-primary"  %>
+			   	
+			<% end %>
+		<% else %>	
+			 <span class="content">Please refresh this page when next round starts</span>
 		<% end %>
 	</div>
 </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121212103555) do
+ActiveRecord::Schema.define(:version => 20121218044924) do
 
   create_table "microposts", :force => true do |t|
     t.string   "content"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(:version => 20121212103555) do
 
   add_index "microposts", ["user_id"], :name => "index_microposts_on_user_id"
 
+  create_table "seasons", :force => true do |t|
+    t.integer  "year"
+    t.string   "description"
+    t.integer  "round"
+    t.boolean  "current"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
@@ -31,6 +40,7 @@ ActiveRecord::Schema.define(:version => 20121212103555) do
     t.string   "password_digest"
     t.string   "remember_token"
     t.boolean  "admin",           :default => false
+    t.boolean  "vote",            :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
