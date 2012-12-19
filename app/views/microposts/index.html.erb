@@ -7,7 +7,7 @@
 		<div class="span6 offset3">
 			<%= form_tag("/set_round", :method => "post") do %>
 				<span class="content">Current round: <%= select_tag( "curr_round", options_for_select([ ['Round 1', 1], ['Round 2', 2] ], 1 )) %>
-			    </span>	
+			  </span>	
 				<span class="content">
 					<%= label_tag(:round, "Set a round of:") %>
 				  <%= text_field_tag(:round) %>
