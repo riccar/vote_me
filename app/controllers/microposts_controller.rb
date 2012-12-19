@@ -129,7 +129,12 @@ class MicropostsController < ApplicationController
   end
 
   def results
-    @microposts = Micropost.paginate(page: params[:page])
+
+    @winner = Micropost.order("votes_round2 DESC").first
+
+    @finalists = Micropost.order("votes_round2 DESC").limit(4).offset(1)
+
+    @microposts = Micropost.paginate(page: params[:page]).order("votes_round2 DESC, votes_round1 DESC")
     render "results"
   end
 end

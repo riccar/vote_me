@@ -1,14 +1,55 @@
 <% provide(:title, 'Results') %>
-
+<h1>Results 2012</h1>
 <% if current_user.admin? %>
-	<% @microposts.each do |micropost| %>
 
-		<%= will_paginate @microposts %>
-	  <h3>Chinazos Total: (<%= @microposts.count %>)</h3>
-	  <ol class="microposts">
-	  	<!--The next line automatically render each micropost using the _micropost.html.erb partial-->
-	    <%= render @microposts %>
-	  </ol>
-	  <%= will_paginate @microposts %>
-  <% end %>
+	<div class="row">
+    <aside class="span12">
+      <section>
+       <h1> ...And the winner of ChinIdol 2012 is... </h1>
+        <ol class="winner">
+        	<li>
+					  <span class="content"><%= @winner.content %></span>
+					  By:<b> <%= @winner.user.name %></b></br>
+					  Votes round 1: <%= @winner.votes_round1 %></br>
+					  Votes round 2: <%= @winner.votes_round2 %></br>
+					  <span class="timestamp">
+
+					    Posted <%= time_ago_in_words(@winner.created_at) %> ago.
+					  </span>
+					</li>
+       		
+     		</ol>
+     		</br>
+     		</br>
+     		<h1> ...Finalists... </h1>
+     		<% @finalists.each do |finalist| %>
+     		<ol class="finalists">
+        	<li>
+					  <span class="content"><%= finalist.content %></span>
+					  By:<b> <%= finalist.user.name %></b></br>
+					  Votes round 1: <%= finalist.votes_round1 %></br>
+					  Votes round 2: <%= finalist.votes_round2 %></br>
+					  <span class="timestamp">
+
+					    Posted <%= time_ago_in_words(finalist.created_at) %> ago.
+					  </span>
+					</li>
+     		</ol>
+     		<% end %>
+     		</br>
+			  </br>  
+			  <h1> ...Our best shot of 2012... </h1>
+				<%= will_paginate @microposts %>
+			  <h3>Chinazos Total: (<%= @microposts.count %>)</h3>
+			  <ol class="microposts">
+			  	<!--The next line automatically render each micropost using the _micropost.html.erb partial-->
+			    <%= render @microposts %>
+			  </ol>
+			  <%= will_paginate @microposts %>
+
+      </section>
+    </aside>
+  </div>
+  
+
 <% end %>

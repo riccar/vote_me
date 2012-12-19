@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(:version => 20121219033113) do
   create_table "microposts", :force => true do |t|
     t.string   "content"
     t.integer  "user_id"
-    t.integer  "votes_round1", :default => 0
+    t.integer  "votes_round1"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
     t.integer  "votes_round2", :default => 0
