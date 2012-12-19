@@ -11,14 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121218044924) do
+ActiveRecord::Schema.define(:version => 20121219033113) do
 
   create_table "microposts", :force => true do |t|
     t.string   "content"
     t.integer  "user_id"
-    t.integer  "votes",      :default => 0
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.integer  "votes_round1", :default => 0
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "votes_round2", :default => 0
   end
 
   add_index "microposts", ["user_id"], :name => "index_microposts_on_user_id"
@@ -26,10 +27,12 @@ ActiveRecord::Schema.define(:version => 20121218044924) do
   create_table "seasons", :force => true do |t|
     t.integer  "year"
     t.string   "description"
-    t.integer  "round"
+    t.integer  "total_round1"
     t.boolean  "current"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "total_round2", :default => 0
+    t.integer  "curr_round",   :default => 1
   end
 
   create_table "users", :force => true do |t|

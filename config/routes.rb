@@ -17,6 +17,7 @@ VoteMe::Application.routes.draw do
 
   match '/vote', to: 'microposts#vote'
   match '/set_round', to: 'microposts#set_round'
+  match '/results', to: 'microposts#results'
 
 
   # The priority is based upon order of creation:

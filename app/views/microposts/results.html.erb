@@ -1,0 +1,14 @@
+<% provide(:title, 'Results') %>
+
+<% if current_user.admin? %>
+	<% @microposts.each do |micropost| %>
+
+		<%= will_paginate @microposts %>
+	  <h3>Chinazos Total: (<%= @microposts.count %>)</h3>
+	  <ol class="microposts">
+	  	<!--The next line automatically render each micropost using the _micropost.html.erb partial-->
+	    <%= render @microposts %>
+	  </ol>
+	  <%= will_paginate @microposts %>
+  <% end %>
+<% end %>

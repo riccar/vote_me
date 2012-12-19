@@ -3,22 +3,29 @@ class MicropostsController < ApplicationController
 	
 	def index
     #raise params.inspect
+
     #get all the posts order by votes
-    @microposts_tmp = Micropost.order("votes DESC")
+    @microposts_tmp = Micropost.order("votes_round1 DESC")
     @microposts = []
     count = 0
     #get the current season's round number
-    season = Season.find_by_current(true)
+    @season = Season.find_by_current(true)
+    
+    if @season.curr_round == 1    
+      total_round = @microposts_tmp.count
+    else
+      total_round = @season.total_round2
+    end
 
     #get all the posts
     @microposts_tmp.each do |micropost|
 
-      if count < season.round
+      if count < total_round
         @microposts[count] = micropost
         count = count + 1
       else
         #Get all the post that has the same vote qty than the last one.
-        if @microposts[count - 1].votes  == micropost.votes
+        if @microposts[count - 1].votes_round1  == micropost.votes_round1
           @microposts[count] = micropost
           count = count + 1
         else
@@ -26,7 +33,7 @@ class MicropostsController < ApplicationController
         end
       end
     end
-    
+
     #Un-sort the posts
     @microposts.shuffle!
  
@@ -51,11 +58,25 @@ class MicropostsController < ApplicationController
   end
 
   def vote
+
+    #check current season to sum up the correct vote field
+    @season = Season.find_by_current(true)
     
+    if @season.curr_round == 1    
+      round = "votes_round1"
+    else
+      round = "votes_round2"
+    end
+
     #find the microposts in the databse to add their current votes
     params[:microposts].each do |key, value|
       micropost = Micropost.find(key)
-      params[:microposts][key]["votes"] = (params[:microposts][key]["votes"].to_i  + micropost.votes).to_s      
+      if @season.curr_round == 1    
+        params[:microposts][key]["votes_round1"] = (params[:microposts][key]["votes_round1"].to_i  + micropost.votes_round1).to_s
+      else
+        params[:microposts][key]["votes_round2"] = (params[:microposts][key]["votes_round2"].to_i  + micropost.votes_round2).to_s
+      end  
+      
     end
 
     #update microposts
@@ -79,21 +100,36 @@ class MicropostsController < ApplicationController
 
   def set_round
     #raise params.inspect
+    
     season = Season.find_by_current(true)
+    #Change round type
+    season.curr_round = params[:curr_round]
 
     #change round if a new number is submited.
+    
     if !params[:round].blank?
-      season.round = params[:round]
+      if season.curr_round == 1
+        season.total_round1 = params[:round]
+      else
+        season.total_round2 = params[:round]
+      end
+      
     else
-      season.round = 10
+      season.total_round1 = 10
+      season.total_round2 = 5
     end
     season.save!
 
-    #Reset votes if checkbox is selected
+    #Allow users to votes if checkbox is selected
     if params.has_key?(:reset_vote) 
       User.update_all( {:vote => false})   
     end
     redirect_to microposts_url
-    #end
+
+  end
+
+  def results
+    @microposts = Micropost.paginate(page: params[:page])
+    render "results"
   end
 end

@@ -4,14 +4,14 @@ class UsersController < ApplicationController
 	before_filter :correct_user,   only: [:edit, :update]
 	before_filter :admin_user,     only: :destroy
 
-	#By default show calls views/users/show.html.erb
+	#By default show renders views/users/show.html.erb
 	def show
     @user = User.find(params[:id])
     @micropost = current_user.microposts.build
     @microposts = @user.microposts.paginate(page: params[:page])
   end
   
-  #By default new calls views/users/new.html.erb
+  #By default new renders views/users/new.html.erb
   def new
     #redirect_to(root_path) unless !signed_in?
     
@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     
   end
 
-	#By default index calls views/users/index.html.erb
+	#By default index renders views/users/index.html.erb
  	def index
  		#Get all the users using the paginate gem predef. function
  		@users = User.paginate(page: params[:page], per_page: 30)
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
 	  end
 	end
 
-	#By default edit calls views/users/edit.html.erb
+	#By default edit renders views/users/edit.html.erb
 	def edit
 		#below line is no longer needed because before_filter correct_user
 		#is being executed for this def

@@ -11,7 +11,7 @@
 #
 
 class Micropost < ActiveRecord::Base
-  attr_accessible :content, :votes
+  attr_accessible :content, :votes_round1, :votes_round2
   belongs_to :user
 
   validates :user_id, presence: true
