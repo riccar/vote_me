@@ -1,5 +1,6 @@
 class MicropostsController < ApplicationController
-  before_filter :signed_in_user, only: [:create, :destroy, :index, :vote]
+  before_filter :signed_in_user, only: [:create, :destroy, :index, :vote, :guess_who_process, :guess_who, :results ]
+  before_filter :admin_user,     only: [:set_round]
 	
 	def index
     #raise params.inspect
