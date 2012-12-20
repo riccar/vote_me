@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(:version => 20121219235001) do
   create_table "microposts", :force => true do |t|
     t.string   "content"
     t.integer  "user_id"
-    t.integer  "votes_round1", :default => 0
+    t.integer  "votes_round1"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
     t.integer  "votes_round2", :default => 0
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(:version => 20121219235001) do
     t.string   "remember_token"
     t.boolean  "admin",           :default => false
     t.boolean  "vote",            :default => false
-    t.integer  "guess_who_score"
+    t.integer  "guess_who_score", :default => 0
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

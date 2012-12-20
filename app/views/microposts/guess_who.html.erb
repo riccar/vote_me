@@ -16,9 +16,6 @@
 			Score
 		</td>
 		<td>
-			Out of
-		</td>
-		<td>
 			Accuracy
 		</td>
 	</tr>
@@ -28,8 +25,7 @@
 		<tr>
 			<td><%= i %></td>
 			<td><%= user.name %></td>
-		 	<td><%= user.guess_who_score %></td>
-		 	<td><%= @microposts.count %></td>
+		 	<td><%= user.guess_who_score %> / <%= @microposts.count %></td>
 		 	<td><%= (user.guess_who_score.to_f / @microposts.count.to_f).round(2) * 100 %> %</td>
 	 	</tr>
 	 	<% i = i + 1 %>
