@@ -38,7 +38,7 @@
 			 		<li>
 				 		</br>
 				 		<%= fields_for "microposts[]", micropost do |f| %>
-				      <span class="content"><%= micropost.content %></span>
+				      <span class="content"><h2><%= micropost.id %></h2><%= micropost.content %></span>
 				      <% if @season.curr_round == 1 %>
 					      
 					      <% if current_user.admin? %>
