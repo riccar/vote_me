@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-	before_filter :signed_in_user, only: [:index, :edit, :update]
+	before_filter :signed_in_user, only: [:index, :edit, :update, :hall_of_fame]
 	before_filter :correct_user,   only: [:edit, :update]
 	before_filter :admin_user,     only: :destroy
 
@@ -65,6 +65,9 @@ class UsersController < ApplicationController
     User.find(params[:id]).destroy
     flash[:success] = "User deleted."
     redirect_to users_url
+  end
+
+  def hall_of_Fame
   end
 
   private
