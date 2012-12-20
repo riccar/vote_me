@@ -21,6 +21,8 @@ VoteMe::Application.routes.draw do
   match '/guess_who', to: 'microposts#guess_who'
   match '/guess_who_process', to: 'microposts#guess_who_process'
 
+  match '/hall_of_fame', to: 'users#hall_of_fame'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
