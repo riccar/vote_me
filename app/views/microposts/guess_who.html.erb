@@ -1,0 +1,89 @@
+<% provide(:title, 'Results') %>
+<h1>Guess who said what...</h1>
+<h2>Scoreboard</h2>
+
+<div class="span9 offset2">
+<table  class="table">
+	<thead>
+	<tr>
+		<td>
+			Place
+		</td>
+		<td>
+			Player
+		</td>
+		<td>
+			Score
+		</td>
+		<td>
+			Out of
+		</td>
+		<td>
+			Accuracy
+		</td>
+	</tr>
+</thead>
+ 	<% i = 1 %>
+	<% @users.each do |user| %>
+		<tr>
+			<td><%= i %></td>
+			<td><%= user.name %></td>
+		 	<td><%= user.guess_who_score %></td>
+		 	<td><%= @microposts.count %></td>
+		 	<td><%= (user.guess_who_score.to_f / @microposts.count.to_f).round(2) * 100 %> %</td>
+	 	</tr>
+	 	<% i = i + 1 %>
+	<% end %>
+</table>
+</div>
+<div class="row">
+	<div class="span7 offset2">
+		
+
+		<% if current_user.guess_who_score == 0 %>
+
+			<h2>Make your choices</h2>
+
+			<%= form_tag("/guess_who_process", :method => "post") do %>
+				
+				<%= submit_tag "Submit", class: "btn btn-large btn-primary"  %>
+
+				</br>
+				<ol class="microposts">
+				 	<% @microposts.each do |micropost| %>
+				 		
+				 		<li>
+				 			<%= fields_for "guess[]", micropost do |f| %>
+					      <span class="content"><%= micropost.content %></span>
+					      <% if current_user.admin? %>
+					      	<span class="content"><%= micropost.user.name %></span>
+					      <% end %>	
+					     
+						    	<span class="content"><%= f.select(:user_id, User.all.map { |u| [u.name, u.name] }, { :selected => nil, :include_blank => true }) %>
+						    	</span>
+
+					    <% end %>
+						</li>			 
+				  <% end %>
+				</ol>
+			  <%= submit_tag "Submit", class: "btn btn-large btn-primary"  %>
+			   	
+			<% end %>
+		<% elsif defined? @guess_res %>	
+			<h2>Results</h2>
+			<!--%= raise @guess_res.inspect %-->	
+			<ol class="microposts">
+			<% @guess_res.each do |guess_res| %>
+			
+				<li>
+					<span class="content"><%= guess_res["content"] %></span>
+					<span class="content">Author: <%=  guess_res["author"] %></span>
+					<span class="content">Guess: <%=  guess_res["guess"] %></span>
+					<span class="content">Result: <% if guess_res["result"] == "FAIL" %><font color='red'> <% else %> <font color='green'> <% end %><%= guess_res["result"] %> </font></span>
+				</li>
+			
+			<% end %>
+			</ol>
+		<% end %>
+	</div>
+</div>

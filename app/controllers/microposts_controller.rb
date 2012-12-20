@@ -122,7 +122,7 @@ class MicropostsController < ApplicationController
 
     #Allow users to votes if checkbox is selected
     if params.has_key?(:reset_vote) 
-      User.update_all( {:vote => false})   
+      User.update_all( {:vote => false} )   
     end
     redirect_to microposts_url
 
@@ -133,8 +133,66 @@ class MicropostsController < ApplicationController
     @winner = Micropost.order("votes_round2 DESC").first
 
     @finalists = Micropost.order("votes_round2 DESC").limit(4).offset(1)
-
+    
     @microposts = Micropost.paginate(page: params[:page]).order("votes_round2 DESC, votes_round1 DESC")
+   
     render "results"
   end
+
+  def guess_who
+
+    
+    #if user.guess_who_score is blank print the form and the ranking of users otherwise print just the ranking. 
+    #if result variable exist print the result 
+
+    @users = User.order("guess_who_score DESC")
+
+    #Get all microposts and unsorted
+    #create a form in the view to include the micropost content and the combo box with al the users
+
+    @microposts = Micropost.all
+    @microposts.shuffle!
+
+    #In the view, at the top Get a list of all the users and print a table 
+    #of users and percentage of acuracy x/total y%
+
+    #raise guess_res.defined?
+
+    render "guess_who"
+  end
+
+  def guess_who_process
+
+    @users = User.order("guess_who_score DESC")
+
+    #receive the POST of the form @ guess_who view and send to guess_who action an array of 
+    #post content, author, guess, FAIL/PASS
+    @microposts = Micropost.all
+    @guess_res = []
+    i = 0
+    score = 0
+    @microposts.each do |micropost|
+      @guess_res[i] = {}
+     
+      @guess_res[i]["content"] = micropost.content
+      @guess_res[i]["author"] = micropost.user.name
+      @guess_res[i]["guess"] = params[:guess][micropost.id.to_s]["user_id"]
+
+      if params[:guess][micropost.id.to_s]["user_id"] == micropost.user.name
+        @guess_res[i]["result"] = "PASS"
+        score = score + 1
+      else
+        @guess_res[i]["result"] = "FAIL"
+      end
+      i = i + 1
+    end
+    #raise current_user.inspect
+    current_user.guess_who_score = score
+    current_user.save!(:validate => false)
+    sign_in current_user
+
+   render "guess_who"
+
+  end
+  
 end

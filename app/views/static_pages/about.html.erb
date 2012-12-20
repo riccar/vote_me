@@ -1,6 +1,10 @@
 <% provide(:title, 'About') %>
 
 <h1>About Us</h1>
-<p>
- Mal pensados todos!
-</p>
+<% if signed_in? %>
+	<% if current_user.admin? %>
+		<div class="span11"> 
+		 <%= image_tag("about.jpg", :alt => "ChynIdol") %>
+		<div>
+	<% end %>		
+<% end %>

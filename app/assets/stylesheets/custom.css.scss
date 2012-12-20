@@ -49,12 +49,12 @@ h1 {
 }
 
 h2 {
-  font-size: 1.7em;
+  font-size: 2em;
   letter-spacing: -1px;
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  color: $grayLight;
+  /*color: $grayLight;*/
 }
 
 p {
@@ -132,7 +132,14 @@ aside {
       line-height: 1;
     }
     h1 {
-      font-size: 1.4em;
+      font-size: 1.8em;
+      text-align: left;
+      letter-spacing: -1px;
+      margin-bottom: 3px;
+      margin-top: 0px;
+    }
+    h3 {
+      font-size: 1.3em;
       text-align: left;
       letter-spacing: -1px;
       margin-bottom: 3px;
@@ -157,7 +164,7 @@ input, textarea .uneditable-input {
 }
 
 select {
-  width: 20%;
+  width: 120px;
   height: 28px;
 }
 
@@ -248,3 +255,4 @@ aside {
     margin-bottom: 5px;
   }
 }
+

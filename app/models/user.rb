@@ -13,7 +13,7 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :password, :password_confirmation, :vote
+  attr_accessible :email, :name, :password, :password_confirmation, :vote, :guess_who_score
 	has_secure_password
   has_many :microposts, dependent: :destroy
 	

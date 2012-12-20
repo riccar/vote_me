@@ -1,18 +1,17 @@
 <% provide(:title, 'Home') %>
 <% if signed_in? %>
-  <div class="row">
-    <aside class="span5">
-      <section>
-       <h2> Winners from previous seasons </h2>
-      </section>
-    </aside>
-  </div>  
+  <div class="center hero-unit">
+    <%= image_tag("cy-6.png", :alt => "ChynIdol",  :size => "180x170") %>
+    <h1>Welcome to ChynIdol 2012</h1>
+  </div>
+  
 <% else %>
   <div class="center hero-unit">
-    <h1>Welcome to Chynidol 2012</h1>
+    <%= image_tag("cy-6.png", :alt => "ChynIdol",  :size => "120x110") %>
+    <h1>Welcome to ChynIdol 2012</h1>
 
   </div>
   <%= render 'shared/new_session_form' %>
-  <%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
 <% end %> 
+<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
 
