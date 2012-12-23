@@ -27,7 +27,7 @@
 	
 	<div class="span10">
 
-		<% if current_user.vote == false %>
+		<% if current_user.admin? #current_user.vote == false %>
 			<%= form_tag("/vote", :method => "post") do %>
 				
 				<%= submit_tag "VOTE", class: "btn btn-large btn-primary"  %>

@@ -1,76 +1,78 @@
 <% provide(:title, 'Results') %>
 <h1>Results 2012</h1>
-
-
-<div class="row"> 
-	<h2> ...And the winner of ChynIdol 2012 is... </h2>
-	<aside class="span1">
-		<h1>1</h1>
-	</aside>
-  <aside class="span11">
-    <section>
-    
-      <ol class="winner">
-      	<li>
-				  <span class="content"><%= @winner.content %></span>
-				  By:<b> <%= @winner.user.name %></b></br>
-				  Votes round 2: <%= @winner.votes_round2 %></br>
-				  Votes round 1: <%= @winner.votes_round1 %></br>
-				  
-				  <span class="timestamp">
-
-				    Posted <%= time_ago_in_words(@winner.created_at) %> ago.
-				  </span>
-				</li>
-     		
-   		</ol>
-   	</section>
-   </aside>
-  
-		</br>
-		</br>
-		<h2> ...Finalists... </h2>
-		<% i = 2 %>
-		<% @finalists.each do |finalist| %>
-
- 		<aside class="span1">
-			<h2><%= i %></h2>
+<% if current_user.admin? %>
+	
+	<div class="row"> 
+		<h2> ...And the winner of ChynIdol 2012 is... </h2>
+		<aside class="span1">
+			<h1>1</h1>
 		</aside>
-		<% i = i + 1 %>
+    <aside class="span11">
+      <section>
+      
+        <ol class="winner">
+        	<li>
+					  <span class="content"><%= @winner.content %></span>
+					  By:<b> <%= @winner.user.name %></b></br>
+					  Votes round 2: <%= @winner.votes_round2 %></br>
+					  Votes round 1: <%= @winner.votes_round1 %></br>
+					  
+					  <span class="timestamp">
+
+					    Posted <%= time_ago_in_words(@winner.created_at) %> ago.
+					  </span>
+					</li>
+       		
+     		</ol>
+     	</section>
+     </aside>
+    
+ 		</br>
+ 		</br>
+ 		<h2> ...Finalists... </h2>
+ 		<% i = 2 %>
+ 		<% @finalists.each do |finalist| %>
+
+   		<aside class="span1">
+				<h2><%= i %></h2>
+			</aside>
+			<% i = i + 1 %>
+			<aside class="span11">
+     		<ol class="finalists">
+        	<li>
+					  <span class="content"><%= finalist.content %></span>
+					  By:<b> <%= finalist.user.name %></b></br>
+					  Votes round 2: <%= finalist.votes_round2 %></br>
+					  Votes round 1: <%= finalist.votes_round1 %></br>
+					 
+					  <span class="timestamp">
+
+					    Posted <%= time_ago_in_words(finalist.created_at) %> ago.
+					  </span>
+					</li>
+     		</ol>
+     	</aside>
+ 		<% end %>
+ 		</br>
+	  </br>  
+	  <h2> ...Our best shots of 2012... </h2>
+	 	<aside class="span1">
+				&nbsp;
+		</aside>
 		<aside class="span11">
-   		<ol class="finalists">
-      	<li>
-				  <span class="content"><%= finalist.content %></span>
-				  By:<b> <%= finalist.user.name %></b></br>
-				  Votes round 2: <%= finalist.votes_round2 %></br>
-				  Votes round 1: <%= finalist.votes_round1 %></br>
-				 
-				  <span class="timestamp">
+				
+			<%= will_paginate @microposts %>
 
-				    Posted <%= time_ago_in_words(finalist.created_at) %> ago.
-				  </span>
-				</li>
-   		</ol>
-   	</aside>
-		<% end %>
-		</br>
-  </br>  
-  <h2> ...Our best shots of 2012... </h2>
- 	<aside class="span1">
-			&nbsp;
-	</aside>
-	<aside class="span11">
-			
-		<%= will_paginate @microposts %>
+		  <h3>Chinazos Total: (<%= @microposts.count %>)</h3>
+		  <ol class="microposts">
+		  	<!--The next line automatically render each micropost using the _micropost.html.erb partial-->
+		    <%= render @microposts %>
+		  </ol>
 
-	  <h3>Chinazos Total: (<%= @microposts.count %>)</h3>
-	  <ol class="microposts">
-	  	<!--The next line automatically render each micropost using the _micropost.html.erb partial-->
-	    <%= render @microposts %>
-	  </ol>
-
-	  <%= will_paginate @microposts %>
-	</aside>
+		  <%= will_paginate @microposts %>
+		</aside>
 
   </div>
   
+
+<% end %>
